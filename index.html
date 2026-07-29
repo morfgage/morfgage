@@ -291,6 +291,8 @@ footer{background:#0A0D14;padding:2.5rem 6% 1.8rem;border-top:1px solid rgba(255
               <div><label class="wf-label">First name</label><input class="wf-input" id="wf-fname" type="text" placeholder="e.g. Rahul" autocomplete="given-name" required></div>
               <div><label class="wf-label">Last name</label><input class="wf-input" id="wf-lname" type="text" placeholder="e.g. Sharma" autocomplete="family-name"></div>
             </div>
+            <label class="wf-label">Email</label>
+            <input class="wf-input" id="wf-email" type="email" placeholder="you@example.com" autocomplete="email" required>
             <label class="wf-label">Mobile number</label>
             <input class="wf-input" id="wf-mobile" type="tel" placeholder="+91 98765 43210" autocomplete="tel" required>
             <label class="wf-label">City</label>
@@ -299,6 +301,10 @@ footer{background:#0A0D14;padding:2.5rem 6% 1.8rem;border-top:1px solid rgba(255
               <option>Bengaluru</option><option>Pune</option><option>Mumbai</option>
               <option>Delhi NCR</option><option>Hyderabad</option><option>Chennai</option><option>Other city</option>
             </select>
+            <label style="display:flex;align-items:flex-start;gap:.5rem;font-size:11.5px;color:var(--text3);line-height:1.5;margin:.7rem 0 .9rem;cursor:pointer">
+              <input type="checkbox" id="wf-consent" required style="margin-top:2px;flex-shrink:0">
+              <span>I agree to let Morfgage store my name, email, mobile number and city to notify me about launch and early access, and to occasionally reach out about the product. See our <a href="#privacy" style="color:var(--text2);text-decoration:underline">Privacy Policy</a>.</span>
+            </label>
             <button class="wf-btn" type="submit">Notify me when we launch →</button>
           </form>
           <div class="wf-note">No spam. One message when we go live in your city.</div>
@@ -465,7 +471,7 @@ footer{background:#0A0D14;padding:2.5rem 6% 1.8rem;border-top:1px solid rgba(255
       <input class="final-input" id="final-mobile" type="tel" placeholder="+91 your mobile number" required>
       <button class="final-btn" type="submit">Notify me →</button>
     </form>
-    <div class="final-note">No spam. One message when we launch.</div>
+    <div class="final-note">By submitting, you agree to be contacted about launch. See our <a href="#privacy" style="color:rgba(255,255,255,.55);text-decoration:underline">Privacy Policy</a>. No spam.</div>
   </div>
 </section>
 
@@ -478,7 +484,7 @@ footer{background:#0A0D14;padding:2.5rem 6% 1.8rem;border-top:1px solid rgba(255
     <p style="font-size:13px;color:var(--text3);margin-bottom:2rem">morfgage.com · Effective July 2026 · Pre-launch version</p>
 
     <div style="background:var(--goldbg);border:1px solid var(--goldbr);border-radius:10px;padding:1rem 1.2rem;font-size:13px;color:var(--text2);line-height:1.7;margin-bottom:1.8rem">
-      <strong>Plain English summary:</strong> Morfgage collects your name, mobile, and city when you join the waitlist. We store it securely, never sell it, and you can ask us to delete it any time by emailing morfgage@gmail.com.
+      <strong>Plain English summary:</strong> Morfgage collects your name, email, mobile number, and city when you join the waitlist, with your consent. We store it securely, never sell it, and you can ask us to delete it any time by emailing morfgage@gmail.com.
     </div>
 
     <div style="font-size:14px;color:var(--text2);line-height:1.85">
@@ -486,13 +492,13 @@ footer{background:#0A0D14;padding:2.5rem 6% 1.8rem;border-top:1px solid rgba(255
       <p style="margin-bottom:1rem">Morfgage is a pre-launch home loan information platform operated by the Morfgage founding team, Bengaluru, India. The company is not yet incorporated. Contact: morfgage@gmail.com</p>
 
       <p style="font-weight:700;color:var(--black);margin-bottom:.3rem;margin-top:1.2rem">2. What data we collect and why</p>
-      <p style="margin-bottom:.5rem">When you join the waitlist we collect: name, mobile number, and city. This is used only to notify you when Morfgage launches in your city. We do not collect financial documents, Aadhaar, PAN, or bank details. Morfgage never collects loan documents — these go directly from you to your lender.</p>
+      <p style="margin-bottom:.5rem">When you join the waitlist we collect: name, email, mobile number, and city. This is used to notify you when Morfgage launches in your city and, occasionally, to reach out about the product. We do not collect financial documents, Aadhaar, PAN, or bank details. Morfgage never collects loan documents — these go directly from you to your lender.</p>
 
       <p style="font-weight:700;color:var(--black);margin-bottom:.3rem;margin-top:1.2rem">3. Legal basis (DPDPA 2023)</p>
       <p style="margin-bottom:.5rem">We process your data on the basis of your explicit consent given when you submit the waitlist form. You may withdraw consent at any time by emailing morfgage@gmail.com.</p>
 
       <p style="font-weight:700;color:var(--black);margin-bottom:.3rem;margin-top:1.2rem">4. How we store your data</p>
-      <p style="margin-bottom:.5rem">Waitlist data is stored in a private Google Sheet accessible only to the Morfgage founding team. It is not shared with third parties, lenders, or DSAs without your knowledge.</p>
+      <p style="margin-bottom:.5rem">Morfgage is in early, pre-incorporation stage. Waitlist submissions are held securely by the Morfgage founding team and will be migrated to a permanent, access-controlled system before public launch. Data is not shared with third parties, lenders, or DSAs without your knowledge.</p>
 
       <p style="font-weight:700;color:var(--black);margin-bottom:.3rem;margin-top:1.2rem">5. Your rights</p>
       <p style="margin-bottom:.5rem">You have the right to access, correct, or delete your data at any time. Email morfgage@gmail.com with the subject "Data Request" and we will respond within 30 days.</p>
@@ -591,6 +597,19 @@ footer{background:#0A0D14;padding:2.5rem 6% 1.8rem;border-top:1px solid rgba(255
 </footer>
 
 <script>
+// Paste your Google Apps Script Web App URL here (ends in /exec) — see setup steps.
+const SHEET_ENDPOINT_URL = 'https://script.google.com/macros/s/AKfycbzNXrCMuDd6hXJKJqDvk2vlLTNN6xWZLIh89M3YJCcwZ6FtELtuR3eo4hc1IoMzOCfu/exec';
+
+function sendToSheet(entry){
+  if(!SHEET_ENDPOINT_URL || SHEET_ENDPOINT_URL.indexOf('PASTE_YOUR') === 0) return;
+  fetch(SHEET_ENDPOINT_URL, {
+    method:'POST',
+    mode:'no-cors', // Apps Script doesn't support CORS preflight; response is opaque but the write still happens
+    headers:{'Content-Type':'text/plain;charset=utf-8'}, // avoids triggering a preflight request
+    body: JSON.stringify(entry)
+  }).catch(()=>{}); // fire-and-forget; localStorage below is the local fallback if this fails
+}
+
 window.addEventListener('scroll',()=>{
   document.getElementById('nav').classList.toggle('scrolled',window.scrollY>30);
 });
@@ -684,9 +703,17 @@ function submitWaitlist(e){
   const city=document.getElementById('wf-city').value;
   setTimeout(()=>{
     try{
-      const entry={name:document.getElementById('wf-fname').value+' '+document.getElementById('wf-lname').value,mobile:document.getElementById('wf-mobile').value,city,at:new Date().toISOString()};
+      const entry={
+        name:document.getElementById('wf-fname').value+' '+document.getElementById('wf-lname').value,
+        email:document.getElementById('wf-email').value,
+        mobile:document.getElementById('wf-mobile').value,
+        city,
+        consent:document.getElementById('wf-consent').checked,
+        at:new Date().toISOString()
+      };
       const ex=JSON.parse(localStorage.getItem('mf_waitlist')||'[]');
       ex.push(entry);localStorage.setItem('mf_waitlist',JSON.stringify(ex));
+      sendToSheet({...entry, source:'hero'});
     }catch(err){}
     document.getElementById('wf-state').style.display='none';
     document.getElementById('wf-success').style.display='block';
@@ -701,6 +728,7 @@ function submitFinal(e){
   btn.textContent="You're on the list ✓";btn.style.background='#059669';btn.style.color='#fff';
   btn.disabled=true;input.disabled=true;
   try{const ex=JSON.parse(localStorage.getItem('mf_waitlist')||'[]');ex.push({mobile:input.value,at:new Date().toISOString(),source:'footer'});localStorage.setItem('mf_waitlist',JSON.stringify(ex));}catch(err){}
+  sendToSheet({mobile:input.value, consent:true, source:'footer'});
 }
 
 function toggleFAQ(el){
