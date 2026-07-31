@@ -247,7 +247,7 @@ footer{background:#0A0D14;padding:2.5rem 6% 1.8rem;border-top:1px solid rgba(255
 <!-- PRE-LAUNCH LEGAL NOTICE -->
 <div style="background:#111;border-bottom:1px solid rgba(201,168,76,.3);padding:.6rem 2rem;text-align:center;font-size:12px;color:rgba(255,255,255,.55);line-height:1.6;position:relative;z-index:300">
   <strong style="color:var(--gold,#C9A84C)">Early access · Pre-launch.</strong>
-  Morfgage is not yet incorporated or registered as a financial intermediary. This website is for information and waitlist purposes only. No loan applications are processed through Morfgage. Rates shown are indicative and sourced from publicly available information.
+  Morfgage is not yet incorporated or registered as a financial intermediary. This website is for <strong>educational and information purposes only</strong>. It is a free rate information directory. No loan applications are processed through Morfgage. Morfgage does not collect any documents. Rates shown are indicative and sourced from publicly available information.
   <a href="#faq" style="color:rgba(255,255,255,.4);margin-left:.5rem;font-size:11px">Learn more ↓</a>
 </div>
 
@@ -259,7 +259,7 @@ footer{background:#0A0D14;padding:2.5rem 6% 1.8rem;border-top:1px solid rgba(255
     <a href="#lenders" class="nav-link">Lenders</a>
     <a href="#faq" class="nav-link">FAQ</a>
   </div>
-  <button class="nav-cta" onclick="focusWaitlist()">Join waitlist</button>
+  <button class="nav-cta" onclick="focusWaitlist()">Request DSA intro</button>
 </nav>
 
 <section class="hero">
@@ -271,9 +271,9 @@ footer{background:#0A0D14;padding:2.5rem 6% 1.8rem;border-top:1px solid rgba(255
         <div class="hero-rate-pct">.25%</div>
       </div>
       <div style="font-size:12px;color:rgba(255,255,255,.35);letter-spacing:.04em;margin-bottom:.4rem">p.a. · publicly available floor rate · your actual rate will vary based on your credit profile and lender assessment</div>
-      <div class="hero-tag">Free rate guide · Pre-launch demo · Bengaluru</div>
+      <div class="hero-tag">Free educational rate directory · Pre-launch · Bengaluru</div>
       <h1 class="hero-h1"><span class="hindi">Sahi lender.</span><br>Right rate.<br>Before you apply.</h1>
-      <p class="hero-sub">A free indicative rate guide across 65+ banks, NBFCs, and HFCs. Understand what home loan rates are available and what each lender typically requires — before you approach anyone.</p>
+      <p class="hero-sub">A free educational directory of indicative home loan rates across 65+ banks, NBFCs, and HFCs. Understand what rates are available and what lenders typically require — before you approach anyone. Morfgage does not collect your documents.</p>
       <div class="hero-badges">
         <span class="hero-badge"><span class="hero-badge-dot"></span>Launching in Bengaluru</span>
         <span class="hero-badge">🏠 Home loans</span>
@@ -284,7 +284,7 @@ footer{background:#0A0D14;padding:2.5rem 6% 1.8rem;border-top:1px solid rgba(255
     <div>
       <div class="waitlist-card" id="waitlist-card">
         <div id="wf-state">
-          <div class="waitlist-card-title">Join the waitlist</div>
+          <div class="waitlist-card-title">Request a DSA introduction</div>
           <div class="waitlist-card-sub">Be first when we launch in Bengaluru. Takes 20 seconds.</div>
           <form id="wf" onsubmit="submitWaitlist(event)">
             <div class="wf-row">
@@ -298,14 +298,13 @@ footer{background:#0A0D14;padding:2.5rem 6% 1.8rem;border-top:1px solid rgba(255
             <label class="wf-label">City</label>
             <select class="wf-input" id="wf-city" required>
               <option value="" disabled selected>Select your city</option>
-              <option>Bengaluru</option><option>Pune</option><option>Mumbai</option>
-              <option>Delhi NCR</option><option>Hyderabad</option><option>Chennai</option><option>Other city</option>
+              <option value="">Select your city</option><option>Bengaluru</option><option>Other city in India</option>
             </select>
             <label style="display:flex;align-items:flex-start;gap:.5rem;font-size:11.5px;color:var(--text3);line-height:1.5;margin:.7rem 0 .9rem;cursor:pointer">
               <input type="checkbox" id="wf-consent" required style="margin-top:2px;flex-shrink:0">
               <span>I agree to let Morfgage store my name, email, mobile number and city to notify me about launch and early access, and to occasionally reach out about the product. See our <a href="#privacy" style="color:var(--text2);text-decoration:underline">Privacy Policy</a>.</span>
             </label>
-            <button class="wf-btn" type="submit">Notify me when we launch →</button>
+            <button class="wf-btn" type="submit">Request DSA introduction →</button>
           </form>
           <div class="wf-note">No spam. One message when we go live in your city.</div>
 
@@ -326,12 +325,13 @@ footer{background:#0A0D14;padding:2.5rem 6% 1.8rem;border-top:1px solid rgba(255
 
 <div class="trust-strip">
   <div class="trust-inner">
-    <div class="trust-item"><span class="trust-icon">🏦</span><span class="trust-bold">65+</span>&nbsp;lenders tracked</div>
+    <div class="trust-item"><span class="trust-icon">🏦</span><span class="trust-bold">65+</span>&nbsp;lenders researched</div>
     <div class="trust-divider"></div>
     <div class="trust-item"><span class="trust-icon">📍</span>Launching in&nbsp;<span class="trust-bold">Bengaluru</span></div>
     <div class="trust-divider"></div>
     <div class="trust-item"><span class="trust-icon">🆓</span><span class="trust-bold">Free</span>&nbsp;for borrowers, always</div>
     <div class="trust-divider"></div>
+    <div class="trust-item"><span class="trust-icon">🎓</span><span class="trust-bold">Educational</span>&nbsp;information only</div>
     <div class="trust-item"><span class="trust-icon">🔍</span>Compare before you&nbsp;<span class="trust-bold">apply</span></div>
     <div class="trust-divider"></div>
     <div class="trust-item"><span class="trust-icon">📋</span>Morfgage never&nbsp;<span class="trust-bold">collects documents</span></div>
@@ -341,13 +341,13 @@ footer{background:#0A0D14;padding:2.5rem 6% 1.8rem;border-top:1px solid rgba(255
 <section class="why-section" id="why">
   <div class="section-max">
     <div class="eyebrow">Why Morfgage</div>
-    <h2 class="section-title">Know your options<br><em>before</em> you walk into a bank.</h2>
+    <h2 class="section-title">A free information guide.<br><em>Before</em> you approach anyone.</h2>
     <p class="section-sub">Most borrowers walk into a bank or call a DSA without knowing what rates are available elsewhere. This free guide gives you that picture upfront — so you can ask better questions and make informed decisions.</p>
     <div class="why-grid">
       <div class="why-card">
         <div class="why-card-num">01</div>
         <div class="why-card-title">Know your rate before you apply</div>
-        <div class="why-card-body">See interest rates, EMIs, processing fees, and eligibility criteria from 65+ lenders — before you submit a single document to any lender. Morfgage never collects your documents. They go directly to the lender you choose.</div>
+        <div class="why-card-body">Browse indicative rates, EMIs, and eligibility criteria across 65+ lenders in one place — all sourced from publicly available information. Morfgage is an educational information directory only. We never collect documents — those go directly from you to your lender.</div>
       </div>
       <div class="why-card">
         <div class="why-card-num">02</div>
@@ -356,8 +356,8 @@ footer{background:#0A0D14;padding:2.5rem 6% 1.8rem;border-top:1px solid rgba(255
       </div>
       <div class="why-card">
         <div class="why-card-num">03</div>
-        <div class="why-card-title">Join the Bengaluru waitlist</div>
-        <div class="why-card-body">Morfgage is building a DSA-matching service for Bengaluru borrowers — launching soon. Join the waitlist to be first when we go live with guided loan matching in your city.</div>
+        <div class="why-card-title">Request a DSA introduction</div>
+        <div class="why-card-body">If you would like to be introduced to a DSA partner, join the waitlist. Morfgage may refer you to a partner DSA in Bengaluru — at no cost to you, with no obligation, and with no documents collected by Morfgage.</div>
       </div>
     </div>
   </div>
@@ -366,12 +366,12 @@ footer{background:#0A0D14;padding:2.5rem 6% 1.8rem;border-top:1px solid rgba(255
 <section class="hiw-section" id="how">
   <div class="section-max" style="text-align:center">
     <div class="eyebrow" style="justify-content:center">The process</div>
-    <h2 class="section-title">How to use this guide</h2>
-    <p class="section-sub" style="margin:0 auto">Three steps to go from no information to a shortlist of lenders suited to your profile — before you speak to anyone.</p>
+    <h2 class="section-title">How this directory works</h2>
+    <p class="section-sub" style="margin:0 auto">Morfgage is a free educational information directory — not a loan application portal. Here is how to use it.</p>
     <div class="hiw-steps">
       <div class="hiw-step"><div class="hiw-num">1</div><div class="hiw-step-title">Browse indicative rates</div><div class="hiw-step-body">See publicly available rates across 65+ lenders — PSU banks, private banks, HFCs, and NBFCs — all in one place. No registration needed.</div></div>
       <div class="hiw-step"><div class="hiw-num">2</div><div class="hiw-step-title">Understand the criteria</div><div class="hiw-step-body">Each lender listing shows minimum CIBIL, income type accepted, maximum LTV, and typical processing time — so you can shortlist based on your profile.</div></div>
-      <div class="hiw-step"><div class="hiw-num">3</div><div class="hiw-step-title">Join the waitlist</div><div class="hiw-step-body">Morfgage is building a DSA-matching service for Bengaluru. Join the waitlist to get guided loan matching — a DSA pre-matched to your profile and lender — when we launch.</div></div>
+      <div class="hiw-step"><div class="hiw-num">3</div><div class="hiw-step-title">Request a DSA introduction</div><div class="hiw-step-body">Once you have shortlisted lenders using this guide, you can request an introduction to a Morfgage partner DSA in Bengaluru — at no cost. Morfgage does not collect any documents. The DSA works directly with you and the lender.</div></div>
     </div>
   </div>
 </section>
@@ -380,7 +380,7 @@ footer{background:#0A0D14;padding:2.5rem 6% 1.8rem;border-top:1px solid rgba(255
   <div class="section-max">
     <div class="eyebrow gold-eye">Lenders we track</div>
     <h2 class="section-title">65+ banks, NBFCs and HFCs.<br><em>One platform.</em></h2>
-    <p class="section-sub">From India's largest public sector banks to specialist HFCs — we research and compile publicly available rate information, eligibility criteria, and indicative timelines to help borrowers compare their options.</p>
+    <p class="section-sub">From India's largest public sector banks to specialist HFCs — this directory compiles publicly available rate information and eligibility criteria across 65+ lenders. This is for educational reference only — always confirm current rates directly with the lender.</p>
 
     <div id="lender-cats"></div>
 
@@ -392,35 +392,17 @@ footer{background:#0A0D14;padding:2.5rem 6% 1.8rem;border-top:1px solid rgba(255
 
 
 <section class="launch-section">
-    <div>
-      <div class="eyebrow gold-eye">City launch</div>
-      <h2 class="section-title">Starting in <em>Bengaluru.</em><br>Expanding city by city.</h2>
-      <p class="section-sub" style="margin-bottom:1.5rem">Building depth in one city first — getting the DSA network, lender coverage, and borrower experience right before expanding. Bengaluru is where it begins.</p>
-      <div class="launch-founder">
-        <div class="founder-label">Who we are</div>
-        <div class="founder-name">Morfgage founding team</div>
-        <div class="founder-bio">Built by people with experience in the Bengaluru lending ecosystem — focused on home loans, not broad financial products.</div>
-        <div class="founder-tags">
-          <span class="founder-tag">Home loan credit appraisal</span>
-          <span class="founder-tag">Property valuation</span>
-          <span class="founder-tag">Mortgage operations</span>
-          <span class="founder-tag">Bengaluru lending ecosystem</span>
-        </div>
-      </div>
-    </div>
-    <div>
-      <div class="launch-map">
-        <div style="font-size:40px;margin-bottom:.6rem">📍</div>
-        <div class="launch-city">Bengaluru</div>
-        <div class="launch-city-sub">Launch city · Karnataka · 2026</div>
-        <div class="launch-dots">
-          <span class="launch-dot live">● Bengaluru — Early access</span>
-          <span class="launch-dot soon">◌ Pune — Coming soon</span>
-          <span class="launch-dot soon">◌ Delhi NCR — Coming soon</span>
-          <span class="launch-dot soon">◌ Mumbai — Coming soon</span>
-          <span class="launch-dot soon">◌ Hyderabad — Coming soon</span>
-        </div>
-      </div>
+  <div style="max-width:900px;margin:0 auto;text-align:center;padding:2.5rem 0">
+    <div class="eyebrow gold-eye">Coverage</div>
+    <h2 class="section-title" style="margin-bottom:.8rem">Currently active in <em>Bengaluru.</em></h2>
+    <p class="section-sub" style="margin-bottom:1.5rem;max-width:580px;margin-left:auto;margin-right:auto">
+      Morfgage is currently active in Bengaluru as a free home loan rate information directory.
+      If you are based in another city, you are welcome to browse the rate directory for self-reference —
+      the lender information and indicative rates apply across India.
+    </p>
+    <div style="display:inline-flex;flex-direction:column;gap:.6rem;align-items:center">
+      <span class="launch-dot live" style="font-size:14px;font-weight:600">● Bengaluru — Active · Rate directory available</span>
+      <span style="font-size:13px;color:var(--text3)">Visiting from another city? Browse the rate directory for general information — lender rates and criteria are applicable across India.</span>
     </div>
   </div>
 </section>
@@ -430,34 +412,52 @@ footer{background:#0A0D14;padding:2.5rem 6% 1.8rem;border-top:1px solid rgba(255
     <div class="eyebrow">Questions</div>
     <h2 class="section-title">Frequently asked</h2>
     <div class="faq-grid">
+
       <div class="faq-item" onclick="toggleFAQ(this)">
-        <div class="faq-q">Is Morfgage free for borrowers?<span class="faq-toggle">+</span></div>
-        <div class="faq-a">Yes — completely free for borrowers to use. There is no charge to view rates, compare lenders, or join the waitlist.</div>
+        <div class="faq-q">What is Morfgage?<span class="faq-toggle">+</span></div>
+        <div class="faq-a">Morfgage is a free educational home loan rate directory in pre-launch. It compiles indicative rates, eligibility criteria, and lender information across 65+ banks, HFCs, and NBFCs — so borrowers can understand their options before approaching any lender. Morfgage is not a loan aggregator, not a financial advisor, and does not process loan applications. It does not collect any documents.</div>
       </div>
+
       <div class="faq-item" onclick="toggleFAQ(this)">
-        <div class="faq-q">How is Morfgage different from Paisabazaar?<span class="faq-toggle">+</span></div>
-        <div class="faq-a">
-          <p style="margin-bottom:.7rem">Paisabazaar is a broad financial marketplace — personal loans, credit cards, business loans, home loans. Home loans are one tab among many. Morfgage does only home loans, LAP, and balance transfers. That specialisation means every feature we build, every lender we research, and every piece of guidance we offer is focused specifically on the home loan journey — not divided across a dozen product types.</p>
-          <p style="margin-bottom:.7rem">The deeper difference is in how we connect you. Paisabazaar shows you lender options and lets you apply. Morfgage matches you to a DSA who is already empanelled with the lender that fits your specific profile — income type, CIBIL score, property location, loan amount. That DSA knows that lender's internal criteria because they work with them daily. Files go to the right door the first time, reducing the risk of a rejection on your credit record.</p>
-          <p>Morfgage is built by people with experience in how home loan decisions are actually made — not just by reading lender websites. That context informs how we guide borrowers, not just an algorithm.</p>
-        </div>
+        <div class="faq-q">Is Morfgage free to use?<span class="faq-toggle">+</span></div>
+        <div class="faq-a">Yes — completely free. There is no charge to browse the rate directory, view lender information, or request a DSA introduction. Morfgage does not ask for payment at any stage.</div>
       </div>
+
+      <div class="faq-item" onclick="toggleFAQ(this)">
+        <div class="faq-q">Are the rates shown guaranteed?<span class="faq-toggle">+</span></div>
+        <div class="faq-a">No. All rates on Morfgage are indicative and sourced from publicly available lender information. They are not a quote or offer. Your actual rate will depend on your CIBIL score, income type, loan amount, property value, and the lender's own assessment at the time of application. Always confirm the current rate directly with the lender before making any decision.</div>
+      </div>
+
+      <div class="faq-item" onclick="toggleFAQ(this)">
+        <div class="faq-q">Does Morfgage collect my documents?<span class="faq-toggle">+</span></div>
+        <div class="faq-a">No — never. Morfgage is an information directory only. If you are introduced to a partner DSA through Morfgage, your documents go directly from you to the lender. Morfgage is not involved in that process at any stage.</div>
+      </div>
+
+      <div class="faq-item" onclick="toggleFAQ(this)">
+        <div class="faq-q">What types of home loans does the directory cover?<span class="faq-toggle">+</span></div>
+        <div class="faq-a">The directory covers indicative rates for home loans for new property purchase, resale property, plot and construction loans, Loan Against Property (LAP), and balance transfers. Lender information is organised by type — public sector banks, private banks, HFCs, and NBFCs.</div>
+      </div>
+
       <div class="faq-item" onclick="toggleFAQ(this)">
         <div class="faq-q">I don't know my CIBIL score. Can I still use Morfgage?<span class="faq-toggle">+</span></div>
-        <div class="faq-a">Our rate guide shows minimum CIBIL requirements for each lender type, so you can see which lenders are more likely to consider lower CIBIL scores. You can check your actual score free at the official CIBIL website (cibil.com) before approaching any lender.</div>
+        <div class="faq-a">Yes. The directory shows minimum CIBIL requirements for each lender type so you can get a general sense of which lenders are more likely to consider your profile. To check your actual score free, visit cibil.com — the official CIBIL website.</div>
       </div>
+
       <div class="faq-item" onclick="toggleFAQ(this)">
-        <div class="faq-q">When will Morfgage go live in Bengaluru?<span class="faq-toggle">+</span></div>
-        <div class="faq-a">Morfgage is currently in early access. We are building our DSA partner network and validating the platform in Bengaluru. Everyone on the waitlist will be first to know when we go live.</div>
+        <div class="faq-q">I am self-employed. Which lenders should I consider?<span class="faq-toggle">+</span></div>
+        <div class="faq-a">Different lender types have different income documentation requirements. HFCs and NBFCs are generally more flexible for self-employed borrowers than public sector banks. Use the directory to identify lender categories that typically accept your income profile, then approach those lenders or a DSA directly.</div>
       </div>
+
       <div class="faq-item" onclick="toggleFAQ(this)">
-        <div class="faq-q">What types of home loans does Morfgage cover?<span class="faq-toggle">+</span></div>
-        <div class="faq-a">Home loans for new and resale property purchase, plot and construction loans, Loan Against Property (LAP), and balance transfers from your existing lender to a lower-rate option.</div>
+        <div class="faq-q">How does the DSA introduction work?<span class="faq-toggle">+</span></div>
+        <div class="faq-a">If you submit your details through Morfgage, we may refer you to a partner DSA in Bengaluru — at no cost and with no obligation. The DSA is an independent professional who works directly with lenders. Morfgage does not collect your documents, is not a party to the loan, and does not guarantee a match or approval. The introduction is simply a referral.</div>
       </div>
+
       <div class="faq-item" onclick="toggleFAQ(this)">
-        <div class="faq-q">I'm self-employed or have informal income. Can Morfgage help?<span class="faq-toggle">+</span></div>
-        <div class="faq-a">Our rate guide includes lender type information — PSU banks, private banks, HFCs, and NBFCs — and different lender types have different criteria for self-employed borrowers. Use the comparison to shortlist lenders that are more likely to consider your income profile before approaching them.</div>
+        <div class="faq-q">When will Morfgage launch its full service?<span class="faq-toggle">+</span></div>
+        <div class="faq-a">Morfgage is in pre-launch in Bengaluru. The rate directory is available now as an educational tool. A guided DSA matching service is being built and will be announced to the waitlist when ready. We do not have a confirmed launch date to share at this stage.</div>
       </div>
+
     </div>
   </div>
 </section>
@@ -466,10 +466,10 @@ footer{background:#0A0D14;padding:2.5rem 6% 1.8rem;border-top:1px solid rgba(255
   <div class="final-inner">
     <div class="eyebrow" style="justify-content:center;color:var(--gold)">Early access</div>
     <h2 class="final-h">Be first when we<br><em>go live.</em></h2>
-    <p class="final-sub">Morfgage is in early access in Bengaluru. Join the waitlist and be first to know when we go live in your city.</p>
+    <p class="final-sub">Morfgage is a free educational rate directory in pre-launch. If you would like an introduction to a partner DSA in Bengaluru, submit your details — at no cost, no obligation, and no documents collected by Morfgage.</p>
     <form class="final-form" onsubmit="submitFinal(event)">
       <input class="final-input" id="final-mobile" type="tel" placeholder="+91 your mobile number" required>
-      <button class="final-btn" type="submit">Notify me →</button>
+      <button class="final-btn" type="submit">Request DSA introduction →</button>
     </form>
     <div class="final-note">By submitting, you agree to be contacted about launch. See our <a href="#privacy" style="color:rgba(255,255,255,.55);text-decoration:underline">Privacy Policy</a>. No spam.</div>
   </div>
@@ -718,7 +718,7 @@ function submitWaitlist(e){
     document.getElementById('wf-state').style.display='none';
     document.getElementById('wf-success').style.display='block';
     document.getElementById('wf-success-title').textContent=city==='Bengaluru'?"You're on the Bengaluru list":`You're on the ${city} list`;
-    document.getElementById('wf-success-sub').textContent=city==='Bengaluru'?'Bengaluru is our launch city. You will be among the very first users when we go live. We will message you on WhatsApp.':`We are expanding to ${city} soon after Bengaluru. You will be first to know.`;
+    document.getElementById('wf-success-sub').textContent='Thank you. If a partner DSA introduction is available in your area, we will be in touch. The rate directory is available for your reference in the meantime.';
   },800);
 }
 
