@@ -468,21 +468,56 @@ table.tbl tr:hover td{background:var(--bg)}
 
 <!-- ── LOGIN MODAL ──────────────────────────────────────── -->
 <div class="modal-overlay" id="login-modal">
-  <div class="modal-box">
-    <div class="modal-logo">morf<em>f</em>gage</div>
-    <div class="modal-h">Quick sign in</div>
-    <div class="modal-sub" id="modal-sub-text">Enter your name and mobile to continue. No OTP, no password.</div>
-    <div class="modal-field">
-      <label class="modal-label">Full name</label>
-      <input class="modal-input" id="modal-name" type="text" placeholder="e.g. Abhirup Roy" autocomplete="name">
+  <div class="modal-box" style="max-width:400px">
+    <div class="modal-logo">mor<em>f</em>gage<span style="display:inline-block;width:5px;height:5px;border-radius:50%;background:#C9A84C;margin-left:3px;vertical-align:middle;margin-bottom:3px"></span></div>
+
+    <!-- ROLE TABS -->
+    <div style="display:flex;background:#F5F6FA;border-radius:10px;padding:3px;margin-bottom:1.2rem;gap:3px">
+      <button id="mtab-borrower" onclick="switchModalRole('borrower')" style="flex:1;padding:.45rem;border-radius:8px;border:none;font-size:12.5px;font-weight:700;cursor:pointer;background:#fff;color:#7C3AED;box-shadow:0 1px 3px rgba(0,0,0,.06)">🏠 Borrower</button>
+      <button id="mtab-dsa" onclick="switchModalRole('dsa')" style="flex:1;padding:.45rem;border-radius:8px;border:none;font-size:12.5px;font-weight:700;cursor:pointer;background:transparent;color:#888">🤝 DSA Partner</button>
+      <button id="mtab-admin" onclick="switchModalRole('admin')" style="flex:1;padding:.45rem;border-radius:8px;border:none;font-size:12.5px;font-weight:700;cursor:pointer;background:transparent;color:#888">⚙ Admin</button>
     </div>
+
+    <!-- MODE TABS (signup/login) — shown for borrower + DSA only -->
+    <div id="modal-mode-tabs" style="display:flex;background:#F5F6FA;border-radius:8px;padding:3px;margin-bottom:1.2rem;gap:3px">
+      <button id="mtab-signup" onclick="switchModalMode('signup')" style="flex:1;padding:.4rem;border-radius:6px;border:none;font-size:12px;font-weight:700;cursor:pointer;background:#fff;color:#7C3AED;box-shadow:0 1px 3px rgba(0,0,0,.06)">Sign up</button>
+      <button id="mtab-login" onclick="switchModalMode('login')" style="flex:1;padding:.4rem;border-radius:6px;border:none;font-size:12px;font-weight:700;cursor:pointer;background:transparent;color:#888">Log in</button>
+    </div>
+
+    <div class="modal-sub" id="modal-sub-text" style="margin-bottom:1.2rem">Create your free borrower account</div>
+
+    <!-- NAME — hidden on login -->
+    <div class="modal-field" id="modal-name-field">
+      <label class="modal-label">Full name</label>
+      <input class="modal-input" id="modal-name" type="text" placeholder="e.g. Rahul Sharma" autocomplete="name">
+    </div>
+
     <div class="modal-field">
       <label class="modal-label">Mobile number</label>
       <input class="modal-input" id="modal-mobile" type="tel" placeholder="+91 98765 43210" autocomplete="tel">
     </div>
-    <div class="modal-err" id="modal-err">Please enter your name and mobile number to continue.</div>
-    <button class="modal-btn" onclick="submitLogin()">Continue →</button>
-    <div class="modal-note">Your details are stored only in this browser. We use them to personalise your lender matches.</div>
+
+    <!-- PASSWORD — shown for DSA signup/login and Admin -->
+    <div class="modal-field" id="modal-password-field" style="display:none">
+      <label class="modal-label" id="modal-password-label">Password</label>
+      <input class="modal-input" id="modal-password" type="password" placeholder="Enter password">
+    </div>
+
+    <!-- DSA EXTRA FIELDS — signup only -->
+    <div id="modal-dsa-fields" style="display:none">
+      <div class="modal-field">
+        <label class="modal-label">City</label>
+        <input class="modal-input" id="modal-city" type="text" placeholder="e.g. Bengaluru">
+      </div>
+      <div class="modal-field">
+        <label class="modal-label">Lenders you are empanelled with</label>
+        <input class="modal-input" id="modal-lenders" type="text" placeholder="e.g. SBI, HDFC, ICICI">
+      </div>
+    </div>
+
+    <div class="modal-err" id="modal-err" style="display:none">Please fill all required fields.</div>
+    <button class="modal-btn" id="modal-submit-btn" onclick="submitLogin()">Continue →</button>
+    <div class="modal-note" id="modal-note">Your details are stored only in this browser. We use them to personalise your lender matches.</div>
   </div>
 </div>
 
@@ -586,7 +621,7 @@ table.tbl tr:hover td{background:var(--bg)}
       <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:.9rem;margin-bottom:.9rem">
         <div>
           <label style="font-size:11px;font-weight:600;color:rgba(255,255,255,.5);display:block;margin-bottom:.35rem">Full name</label>
-          <input class="match-bar-input" id="if-name" type="text" placeholder="Abhirup Roy" required>
+          <input class="match-bar-input" id="if-name" type="text" placeholder="e.g. Rahul Sharma" required>
         </div>
         <div>
           <label style="font-size:11px;font-weight:600;color:rgba(255,255,255,.5);display:block;margin-bottom:.35rem">Mobile number</label>
@@ -635,8 +670,18 @@ table.tbl tr:hover td{background:var(--bg)}
           </select>
         </div>
         <div>
-          <label style="font-size:11px;font-weight:600;color:rgba(255,255,255,.5);display:block;margin-bottom:.35rem">Profession / employer</label>
-          <input class="match-bar-input" id="if-profession" type="text" placeholder="e.g. Software engineer at TCS">
+          <label style="font-size:11px;font-weight:600;color:rgba(255,255,255,.5);display:block;margin-bottom:.35rem">Employment sector</label>
+          <select class="match-bar-input" id="if-profession">
+            <option value="" disabled selected>Select sector</option>
+            <option>IT / Technology</option>
+            <option>Government / PSU</option>
+            <option>Banking / Finance</option>
+            <option>Healthcare / Pharma</option>
+            <option>Manufacturing</option>
+            <option>Education</option>
+            <option>Retail / Trade</option>
+            <option>Other</option>
+          </select>
         </div>
       </div>
       <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr auto;gap:.9rem;align-items:flex-end">
@@ -735,7 +780,7 @@ table.tbl tr:hover td{background:var(--bg)}
 
   <div class="dsa-teaser text-center">
     <div class="fw7" style="font-size:16px;margin-bottom:.4rem">Are you a DSA partner?</div>
-    <div class="fs13 c-muted mb1">Receive pre-qualified borrower leads matched to your exact lender empanelments. Rs. 0 platform fee for the first 6 months.</div>
+    <div class="fs13 c-muted mb1">Receive pre-qualified borrower leads matched to your exact lender empanelments — free to join during pre-launch.</div>
     <button class="btn btn-gold" onclick="setRole('dsa',document.querySelectorAll('.role-btn')[1])">Explore DSA dashboard →</button>
   </div>
 </div>
@@ -760,6 +805,7 @@ table.tbl tr:hover td{background:var(--bg)}
 
   <!-- STEP 4: PARTNER DSA MATCH -->
   <div id="e-step4" class="hidden">
+    <div style="margin-bottom:1rem"><button class="btn btn-outline btn-sm" onclick="eBackToStep3()">← See other lenders</button></div>
     <div class="card green-accent mb15 inline-flex justify-between">
       <div class="inline-flex" style="gap:1rem">
         <div style="width:44px;height:44px;border-radius:50%;background:var(--green);display:flex;align-items:center;justify-content:center;color:#fff;font-size:20px;flex-shrink:0">✓</div>
@@ -769,15 +815,12 @@ table.tbl tr:hover td{background:var(--bg)}
     <div class="grid2" style="gap:1.5rem;align-items:start">
       <div class="card" style="border-top:3px solid var(--purple)">
         <div class="card-label">Your partner DSA</div>
-        <div class="inline-flex" style="gap:1rem;margin-bottom:1.2rem;align-items:center">
-          <div style="width:52px;height:52px;border-radius:50%;background:var(--purplebg);border:2px solid var(--purplebr);display:flex;align-items:center;justify-content:center;font-family:Georgia,serif;font-size:18px;font-weight:700;color:var(--purple2);flex-shrink:0">RK</div>
+        <div style="background:var(--greenbg);border:1px solid var(--greenbr);border-radius:10px;padding:.9rem 1.1rem;margin-bottom:1.2rem;display:flex;align-items:center;gap:.8rem">
+          <div style="font-size:28px">🤝</div>
           <div>
-            <div class="fw7" style="font-size:15px">R. Kumar</div>
-            <div class="fs12 c-muted">Morfgage certified DSA · Bengaluru</div>
-            <div class="inline-flex mt1" style="gap:.4rem">
-              <span class="pill pill-green" style="font-size:10px">Verified</span>
-              <span class="pill pill-purple" style="font-size:10px">4.8★ rating</span>
-            </div>
+            <div class="fw7" style="font-size:14px;color:var(--green)">A partner DSA will be introduced to you</div>
+            <div class="fs12 c-muted" style="margin-top:.2rem">Bengaluru · Morfgage partner network · Within 24–48 hours</div>
+            <div class="fs11 c-muted" style="margin-top:.15rem">Contact details shared on WhatsApp after Morfgage confirms the introduction</div>
           </div>
         </div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin-bottom:1rem">
@@ -786,8 +829,8 @@ table.tbl tr:hover td{background:var(--bg)}
             <div class="fw7 fs12 c-purple">SBI Home Loans</div>
           </div>
           <div style="background:var(--bg);border-radius:8px;padding:.6rem .8rem">
-            <div class="fs11 c-muted mb1">Loans closed</div>
-            <div class="fw7 fs12">38 home loans</div>
+            <div class="fs11 c-muted mb1">Network</div>
+            <div class="fw7 fs12" style="color:var(--purple2)">Bengaluru DSA network</div>
           </div>
           <div style="background:var(--bg);border-radius:8px;padding:.6rem .8rem">
             <div class="fs11 c-muted mb1">Avg. approval time</div>
@@ -795,11 +838,11 @@ table.tbl tr:hover td{background:var(--bg)}
           </div>
           <div style="background:var(--bg);border-radius:8px;padding:.6rem .8rem">
             <div class="fs11 c-muted mb1">Contact</div>
-            <div class="fw7 fs12">+91 XXXXX XXXXX</div>
+            <div class="fw7 fs12" style="color:var(--text3)">Shared on WhatsApp after intro</div>
           </div>
         </div>
         <div style="background:var(--goldbg);border:1px solid var(--goldbr);border-radius:9px;padding:.8rem 1rem;font-size:12px;color:var(--text2);line-height:1.6;margin-bottom:1rem">
-          <strong>What happens next:</strong> Our partner DSA will WhatsApp you within 24 hours to introduce themselves, confirm your loan requirement, and guide you on document preparation. Morfgage does not collect any documents — they go directly from you to the lender.
+          <strong>What happens next:</strong> A Morfgage partner DSA will WhatsApp you within 24–48 hours to introduce themselves and confirm your loan requirement. <strong>Morfgage never collects your documents</strong> — they go directly from you to the lender. There is no obligation and no charge.
         </div>
         <div class="fs11 c-muted" style="line-height:1.5">DSA details are partially masked until Morfgage confirms the match. Full contact details shared on WhatsApp.</div>
       </div>
@@ -834,7 +877,7 @@ table.tbl tr:hover td{background:var(--bg)}
         </div>
         <div class="field-row2">
           <div class="field-group"><label class="field-label">CIBIL score (approx.)</label><select class="field-input" id="e-cibil"><option value="760">760+ — Excellent</option><option value="730" selected>730–759 — Very good</option><option value="700">700–729 — Good</option><option value="670">670–699 — Fair</option><option value="640">Below 670 — Low</option></select></div>
-          <div class="field-group"><label class="field-label">City</label><select class="field-input" id="e-city"><option>Bengaluru</option><option>Pune</option><option>Delhi NCR</option><option>Mumbai</option></select></div>
+          <div class="field-group"><label class="field-label">City</label><select class="field-input" id="e-city"><option>Bengaluru</option></select></div>
         </div>
         <div class="field-group"><label class="field-label">Existing EMIs / month (Rs.)</label><input class="field-input" type="number" id="e-emis" value="8000" oninput="updateFOIR()"></div>
         <button class="btn btn-primary" style="width:100%;justify-content:center" onclick="eNext()">Continue to loan details →</button>
@@ -1219,7 +1262,7 @@ table.tbl tr:hover td{background:var(--bg)}
   <div class="page-head"><div class="page-title">For DSA partners</div><div class="page-sub">Join Morfgage's DSA network. Receive pre-qualified leads matched to your lender empanelments.</div></div>
   <div class="grid3 mb15">
     <div class="card gold-accent"><div style="font-size:24px;margin-bottom:.6rem">📥</div><div class="fw7 mb1">Pre-qualified leads</div><div class="fs12 c-muted" style="line-height:1.6">Borrowers screened against your exact lender empanelments. Fewer wasted calls on profiles that don't match your lender network.</div></div>
-    <div class="card gold-accent"><div style="font-size:24px;margin-bottom:.6rem">💰</div><div class="fw7 mb1">Earn 65% of commission</div><div class="fs12 c-muted" style="line-height:1.6">Lender pays 0.8% of loan value. You keep 65%. Morfgage earns only when you disburse. Rs. 0 platform fee for 6 months.</div></div>
+    <div class="card gold-accent"><div style="font-size:24px;margin-bottom:.6rem">💰</div><div class="fw7 mb1">Earn commission on every disbursal</div><div class="fs12 c-muted" style="line-height:1.6">Commission rates are agreed per your partnership arrangement with Morfgage. The platform tracks your gross commission and calculates net after the Morfgage platform fee — visible in your earnings dashboard.</div></div>
     <div class="card gold-accent"><div style="font-size:24px;margin-bottom:.6rem">📊</div><div class="fw7 mb1">Full pipeline visibility</div><div class="fs12 c-muted" style="line-height:1.6">Track every file from lead to disbursal. Earnings dashboard. Commission ledger. All in one place.</div></div>
   </div>
   <div class="card" style="text-align:center;padding:2rem">
@@ -1491,7 +1534,7 @@ table.tbl tr:hover td{background:var(--bg)}
         </div>
       </div>
       <div class="inline-flex" style="gap:2rem">
-        <div style="text-align:center"><div style="font-family:Georgia,serif;font-size:28px;font-weight:700;color:var(--gold)">4.8★</div><div style="font-size:11px;color:rgba(255,255,255,.45)">Borrower rating</div></div>
+        <div style="text-align:center"><div style="font-family:Georgia,serif;font-size:28px;font-weight:700;color:var(--gold)">Active</div><div style="font-size:11px;color:rgba(255,255,255,.45)">Partnership status</div></div>
         <div style="width:1px;background:rgba(255,255,255,.1)"></div>
         <div style="text-align:center"><div style="font-family:Georgia,serif;font-size:28px;font-weight:700;color:#fff">142</div><div style="font-size:11px;color:rgba(255,255,255,.45)">Loans closed</div></div>
         <div style="width:1px;background:rgba(255,255,255,.1)"></div>
@@ -1531,7 +1574,7 @@ table.tbl tr:hover td{background:var(--bg)}
         <div class="card-label">Address</div>
         <div class="field-group"><label class="field-label">Street address</label><input class="field-input" value="14, Indiranagar 2nd Stage"></div>
         <div class="field-row2">
-          <div class="field-group"><label class="field-label">City</label><select class="field-input"><option>Bengaluru</option><option>Pune</option><option>Delhi NCR</option><option>Mumbai</option><option>Hyderabad</option></select></div>
+          <div class="field-group"><label class="field-label">City</label><select class="field-input"><option>Bengaluru</option></select></div>
           <div class="field-group"><label class="field-label">PIN code</label><input class="field-input" value="560038"></div>
         </div>
         <div class="field-group"><label class="field-label">State</label><select class="field-input"><option>Karnataka</option><option>Maharashtra</option><option>Delhi</option><option>Tamil Nadu</option></select></div>
@@ -1755,7 +1798,7 @@ table.tbl tr:hover td{background:var(--bg)}
       <div class="field-group"><label class="field-label">Full name</label><input class="field-input" id="dm-name" placeholder="e.g. Ramesh Kumar"></div>
       <div class="field-row2">
         <div class="field-group"><label class="field-label">Mobile</label><input class="field-input" id="dm-mobile" type="tel" placeholder="+91 98765 43210"></div>
-        <div class="field-group"><label class="field-label">City</label><select class="field-input" id="dm-city"><option>Bengaluru</option><option>Pune</option><option>Delhi NCR</option></select></div>
+        <div class="field-group"><label class="field-label">City</label><select class="field-input" id="dm-city"><option>Bengaluru</option></select></div>
       </div>
       <div class="field-group">
         <label class="field-label">Morfgage commission cut % <span class="c-muted fs11">(of gross commission DSA receives from lender)</span></label>
@@ -1911,8 +1954,7 @@ table.tbl tr:hover td{background:var(--bg)}
       <div class="card mb15">
         <div class="card-label">Expansion timeline</div>
         <div class="city-card" style="border-color:var(--greenbr);background:var(--greenbg)"><div class="inline-flex justify-between"><div><div class="fw7 c-green">Bengaluru</div><div class="fs11 c-muted">Launch city · Early access · Demo data</div></div><span class="pill pill-green">Live</span></div></div>
-        <div class="city-card"><div class="inline-flex justify-between"><div><div class="fw7">Pune</div><div class="fs11 c-muted">FY27-28 · City 2 · Planned Q1</div></div><span class="pill pill-gold">Planned</span></div></div>
-        <div class="city-card"><div class="inline-flex justify-between"><div><div class="fw7 c-muted">Delhi NCR</div><div class="fs11 c-muted">FY28-29 · City 3</div></div><span class="pill pill-gray">Future</span></div></div>
+        <div class="city-card"><div class="inline-flex justify-between"><div><div class="fw7 c-muted">City 2</div><div class="fs11 c-muted">Planning in progress</div></div><span class="pill pill-gray">TBD</span></div></div>
         <div class="city-card"><div class="inline-flex justify-between"><div><div class="fw7 c-muted">Tier-2 city TBD</div><div class="fs11 c-muted">FY29-30 · City 4</div></div><span class="pill pill-gray">Future</span></div></div>
         <div class="city-card" style="margin:0"><div class="inline-flex justify-between"><div><div class="fw7 c-muted">Tier-2 city TBD</div><div class="fs11 c-muted">FY30-31 · City 5</div></div><span class="pill pill-gray">Future</span></div></div>
       </div>
@@ -1925,7 +1967,7 @@ table.tbl tr:hover td{background:var(--bg)}
         <div class="inline-flex justify-between" style="padding:.6rem 0;border-bottom:1px solid var(--purplebr)"><span class="c-muted">Seed funding runway sufficient</span><span class="pill pill-green">Yes</span></div>
         <div class="inline-flex justify-between" style="padding:.6rem 0"><span class="c-muted">City 2 DSA pipeline ready</span><span class="pill pill-blue">In progress</span></div>
       </div>
-      <p class="fs12 c-muted mt1" style="line-height:1.6">Bengaluru must be self-sustaining before capital is deployed in Pune. Build depth before width.</p>
+      <p class="fs12 c-muted mt1" style="line-height:1.6">Bengaluru is the launch city. City 2 expansion will be announced when ready.</p>
     </div>
   </div>
 </div>
@@ -2169,9 +2211,166 @@ const lenders=[
 function fmt(n){return "Rs. "+Math.round(n).toLocaleString("en-IN")}
 function emiVal(P,r,n){const R=r/100/12,N=n*12;return P*R*Math.pow(1+R,N)/(Math.pow(1+R,N)-1)}
 
+// ── ROLE AUTH STATE ─────────────────────────────────────
+let _currentRole = 'borrower';
+let _modalRole = 'borrower';
+let _modalMode = 'signup'; // 'signup' | 'login'
+// Admin password — change this to something only you know
+const ADMIN_PASSWORD = 'morfgage@admin2026';
+
+function getStoredDSAUsers(){
+  try{ return JSON.parse(localStorage.getItem('mf_dsa_users')||'{}'); }catch(e){ return {}; }
+}
+function saveDSAUser(mobile, data){
+  const u = getStoredDSAUsers(); u[mobile] = data;
+  try{ localStorage.setItem('mf_dsa_users', JSON.stringify(u)); }catch(e){}
+}
+function findDSAUser(mobile){
+  return getStoredDSAUsers()[mobile] || null;
+}
+
+function switchModalRole(role){
+  _modalRole = role;
+  const tabs = ['borrower','dsa','admin'];
+  tabs.forEach(t=>{
+    const el = document.getElementById('mtab-'+t);
+    if(!el) return;
+    const active = t===role;
+    el.style.background = active ? '#fff' : 'transparent';
+    el.style.color = active ? (t==='admin'?'#059669':t==='dsa'?'#C9A84C':'#7C3AED') : '#888';
+    el.style.boxShadow = active ? '0 1px 3px rgba(0,0,0,.06)' : 'none';
+  });
+  const modeTabs = document.getElementById('modal-mode-tabs');
+  const dsaFields = document.getElementById('modal-dsa-fields');
+  const pwField = document.getElementById('modal-password-field');
+  const nameField = document.getElementById('modal-name-field');
+  const sub = document.getElementById('modal-sub-text');
+  const btn = document.getElementById('modal-submit-btn');
+  const note = document.getElementById('modal-note');
+  if(role==='admin'){
+    modeTabs.style.display='none';
+    nameField.style.display='none';
+    dsaFields.style.display='none';
+    pwField.style.display='block';
+    document.getElementById('modal-password-label').textContent='Admin password';
+    document.getElementById('modal-password').placeholder='Enter admin password';
+    sub.textContent='Admin access — authorised personnel only';
+    btn.textContent='Unlock admin →';
+    btn.style.background='#059669';
+    note.textContent='Admin access is restricted. Contact morfgage@gmail.com if you need access.';
+  } else if(role==='dsa'){
+    modeTabs.style.display='flex';
+    switchModalMode(_modalMode==='login'?'login':'signup');
+    btn.style.background='#C9A84C';
+    btn.style.color='#111';
+  } else {
+    modeTabs.style.display='flex';
+    switchModalMode('signup');
+    dsaFields.style.display='none';
+    pwField.style.display='none';
+    nameField.style.display='block';
+    sub.textContent='Create your free borrower account';
+    btn.style.background='var(--purple,#7C3AED)';
+    btn.style.color='#fff';
+    btn.textContent='Continue →';
+    note.textContent='Your details are stored only in this browser.';
+  }
+}
+
+function switchModalMode(mode){
+  _modalMode = mode;
+  ['signup','login'].forEach(m=>{
+    const el = document.getElementById('mtab-'+m);
+    if(!el) return;
+    const active = m===mode;
+    el.style.background = active ? '#fff' : 'transparent';
+    el.style.color = active ? '#7C3AED' : '#888';
+    el.style.boxShadow = active ? '0 1px 3px rgba(0,0,0,.06)' : 'none';
+  });
+  const nameField = document.getElementById('modal-name-field');
+  const pwField = document.getElementById('modal-password-field');
+  const dsaFields = document.getElementById('modal-dsa-fields');
+  const sub = document.getElementById('modal-sub-text');
+  const btn = document.getElementById('modal-submit-btn');
+  const note = document.getElementById('modal-note');
+  if(_modalRole==='dsa'){
+    pwField.style.display='block';
+    document.getElementById('modal-password-label').textContent = mode==='signup'?'Create a password':'Your password';
+    document.getElementById('modal-password').placeholder = mode==='signup'?'Min. 6 characters':'Enter password';
+    if(mode==='signup'){
+      nameField.style.display='block';
+      dsaFields.style.display='block';
+      sub.textContent='Join as a DSA partner — free during pre-launch';
+      btn.textContent='Create DSA account →';
+      note.textContent='Your account is stored in this browser. Contact morfgage@gmail.com to complete your partnership.';
+    } else {
+      nameField.style.display='none';
+      dsaFields.style.display='none';
+      sub.textContent='Log in to your DSA partner dashboard';
+      btn.textContent='Log in →';
+      note.textContent='Use the mobile number and password you signed up with.';
+    }
+  } else {
+    // borrower
+    if(mode==='signup'){
+      nameField.style.display='block';
+      pwField.style.display='none';
+      sub.textContent='Create your free borrower account';
+      btn.textContent='Continue →';
+    } else {
+      nameField.style.display='none';
+      pwField.style.display='none';
+      sub.textContent='Log in with your mobile number';
+      btn.textContent='Log in →';
+    }
+    note.textContent='Your details are stored only in this browser.';
+  }
+}
+
 function setRole(role,btn){
+  // Gate DSA and Admin roles behind auth
+  if(role==='dsa'){
+    // Check if already logged in as DSA
+    try{
+      const dsaUser = JSON.parse(localStorage.getItem('mf_dsa_session')||'null');
+      if(dsaUser && dsaUser.role==='dsa'){
+        _activateRole(role,btn);
+        return;
+      }
+    }catch(e){}
+    // Show DSA login
+    _modalRole='dsa';
+    _modalMode='login';
+    openLogin('DSA Partner login');
+    switchModalRole('dsa');
+    switchModalMode('login');
+    // Store pending role
+    window._pendingRole = {role, btn};
+    return;
+  }
+  if(role==='admin'){
+    // Check if already unlocked
+    try{
+      const adminSession = localStorage.getItem('mf_admin_session');
+      if(adminSession==='unlocked'){
+        _activateRole(role,btn);
+        return;
+      }
+    }catch(e){}
+    // Show admin password
+    _modalRole='admin';
+    openLogin('Admin access');
+    switchModalRole('admin');
+    window._pendingRole = {role, btn};
+    return;
+  }
+  _activateRole(role,btn);
+}
+
+function _activateRole(role,btn){
+  _currentRole = role;
   document.querySelectorAll(".role-btn").forEach(b=>b.classList.remove("active"));
-  btn.classList.add("active");
+  if(btn) btn.classList.add("active");
   document.querySelectorAll(".sidebar").forEach(s=>s.classList.add("hidden"));
   document.getElementById("sb-"+role).classList.remove("hidden");
   const roleFirstPage={borrower:"b-home",dsa:"d-leads",admin:"a-dashboard"};
@@ -2230,6 +2429,11 @@ function _showPageActual(id, btn, roleClass){
 function openLogin(subtitle){
   const modal = document.getElementById('login-modal');
   if(subtitle) document.getElementById('modal-sub-text').textContent = subtitle;
+  // Reset to borrower signup if not already set by role switching
+  if(_modalRole==='borrower'){
+    switchModalRole('borrower');
+    switchModalMode('signup');
+  }
   // pre-fill from intake form if available
   try{
     const leads = JSON.parse(localStorage.getItem('morfgage_leads')||'[]');
@@ -2250,25 +2454,83 @@ function closeLogin(){
 }
 
 function submitLogin(){
-  const name   = document.getElementById('modal-name').value.trim();
-  const mobile = document.getElementById('modal-mobile').value.trim();
-  if(!name || !mobile){
-    document.getElementById('modal-err').style.display='block';
+  const errEl = document.getElementById('modal-err');
+  errEl.style.display='none';
+
+  // ── ADMIN ───────────────────────────────────────────────
+  if(_modalRole==='admin'){
+    const pw = document.getElementById('modal-password').value;
+    if(pw !== ADMIN_PASSWORD){
+      errEl.textContent = '⚠ Incorrect admin password. Contact morfgage@gmail.com for access.';
+      errEl.style.display='block';
+      return;
+    }
+    try{ localStorage.setItem('mf_admin_session','unlocked'); }catch(e){}
+    document.getElementById('login-modal').classList.remove('open');
+    if(window._pendingRole){
+      const {role,btn}=window._pendingRole;
+      window._pendingRole=null;
+      _activateRole(role,btn);
+    }
     return;
   }
-  document.getElementById('modal-err').style.display='none';
-  // Store user session
-  const user = {name, mobile, loginAt: new Date().toISOString()};
-  try{ localStorage.setItem('morfgage_user', JSON.stringify(user)); }catch(e){}
-  // Update topbar
-  updateTopbarForUser(user);
-  // Close modal
+
+  // ── DSA ─────────────────────────────────────────────────
+  if(_modalRole==='dsa'){
+    const mobile = document.getElementById('modal-mobile').value.trim();
+    const pw = document.getElementById('modal-password').value.trim();
+    if(!mobile||!pw){ errEl.textContent='⚠ Please enter your mobile number and password.'; errEl.style.display='block'; return; }
+    if(_modalMode==='signup'){
+      const name = document.getElementById('modal-name').value.trim();
+      if(!name){ errEl.textContent='⚠ Please enter your full name.'; errEl.style.display='block'; return; }
+      if(pw.length<6){ errEl.textContent='⚠ Password must be at least 6 characters.'; errEl.style.display='block'; return; }
+      if(findDSAUser(mobile)){ errEl.textContent='⚠ An account with this mobile already exists. Please log in.'; errEl.style.display='block'; return; }
+      const dsaUser = {name, mobile, password:pw, city:document.getElementById('modal-city').value.trim()||'Bengaluru', lenders:document.getElementById('modal-lenders').value.trim(), createdAt:new Date().toISOString(), role:'dsa'};
+      saveDSAUser(mobile, dsaUser);
+      try{ localStorage.setItem('mf_dsa_session', JSON.stringify(dsaUser)); }catch(e){}
+      // Send to Google Sheet
+      postLead({type:'dsa_signup', name, mobile, city:dsaUser.city, lenders:dsaUser.lenders});
+      document.getElementById('login-modal').classList.remove('open');
+      if(window._pendingRole){
+        const {role,btn}=window._pendingRole; window._pendingRole=null; _activateRole(role,btn);
+      } else {
+        _activateRole('dsa', document.querySelectorAll('.role-btn')[1]);
+      }
+    } else {
+      // Login
+      const dsaUser = findDSAUser(mobile);
+      if(!dsaUser||dsaUser.password!==pw){ errEl.textContent='⚠ Incorrect mobile or password.'; errEl.style.display='block'; return; }
+      try{ localStorage.setItem('mf_dsa_session', JSON.stringify(dsaUser)); }catch(e){}
+      document.getElementById('login-modal').classList.remove('open');
+      if(window._pendingRole){
+        const {role,btn}=window._pendingRole; window._pendingRole=null; _activateRole(role,btn);
+      } else {
+        _activateRole('dsa', document.querySelectorAll('.role-btn')[1]);
+      }
+    }
+    return;
+  }
+
+  // ── BORROWER ────────────────────────────────────────────
+  const mobile = document.getElementById('modal-mobile').value.trim();
+  if(_modalMode==='signup'){
+    const name = document.getElementById('modal-name').value.trim();
+    if(!name||!mobile){ errEl.textContent='⚠ Please enter your name and mobile number.'; errEl.style.display='block'; return; }
+    const user = {name, mobile, loginAt: new Date().toISOString()};
+    try{ localStorage.setItem('morfgage_user', JSON.stringify(user)); }catch(e){}
+    updateTopbarForUser(user);
+  } else {
+    if(!mobile){ errEl.textContent='⚠ Please enter your mobile number.'; errEl.style.display='block'; return; }
+    const existing = getUser();
+    if(!existing||existing.mobile!==mobile){ errEl.textContent='⚠ Mobile number not found. Please sign up first.'; errEl.style.display='block'; return; }
+    updateTopbarForUser(existing);
+  }
   document.getElementById('login-modal').classList.remove('open');
-  // Navigate to pending page if any
   if(window._pendingPage){
-    const {id, btn, roleClass} = window._pendingPage;
-    window._pendingPage = null;
-    _showPageActual(id, btn, roleClass);
+    const {id,btn,roleClass}=window._pendingPage; window._pendingPage=null; _showPageActual(id,btn,roleClass);
+  }
+  if(window._pendingRole){
+    const {role,btn}=window._pendingRole; window._pendingRole=null; _activateRole(role,btn);
   }
 }
 
@@ -2283,11 +2545,21 @@ function updateTopbarForUser(user){
 }
 
 function logOut(){
-  try{ localStorage.removeItem('morfgage_user'); }catch(e){}
+  try{
+    localStorage.removeItem('morfgage_user');
+    localStorage.removeItem('mf_dsa_session');
+    localStorage.removeItem('mf_admin_session');
+  }catch(e){}
+  _currentRole='borrower';
+  _modalRole='borrower';
   document.getElementById('tb-logged-in').classList.add('hidden');
   document.getElementById('tb-logged-out').classList.remove('hidden');
   closeLogoutMenu();
-  // Return to home
+  // Reset role buttons
+  document.querySelectorAll('.role-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelector('.role-btn.borrower').classList.add('active');
+  document.querySelectorAll('.sidebar').forEach(s=>s.classList.add('hidden'));
+  document.getElementById('sb-borrower').classList.remove('hidden');
   _showPageActual('b-home', document.querySelector('#sb-borrower .side-item:first-child'));
 }
 
@@ -2487,6 +2759,7 @@ function eNext(){
   document.getElementById("e-s2n").className="step-n cur";
   document.getElementById("e-s2t").className="step-text cur";
 }
+function eBackToStep3(){document.getElementById("e-step4").classList.add("hidden");document.getElementById("e-step3").classList.remove("hidden");}
 function eBack(){
   document.getElementById("e-step2").classList.add("hidden");
   document.getElementById("e-step1").classList.remove("hidden");
